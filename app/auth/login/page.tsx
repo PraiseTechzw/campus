@@ -11,7 +11,18 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle, Loader2 } from "lucide-react"
+import { 
+  AlertCircle, 
+  Loader2, 
+  Mail, 
+  Lock, 
+  User, 
+  GraduationCap,
+  Info,
+  KeyRound,
+  ShieldCheck,
+  HelpCircle
+} from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -47,14 +58,23 @@ export default function LoginPage() {
     <div className="container flex h-screen max-w-screen-xl flex-col items-center justify-center">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
+          <h1 className="text-2xl font-semibold tracking-tight flex items-center justify-center gap-2">
+            <GraduationCap className="h-6 w-6 text-primary" />
+            Welcome back
+          </h1>
           <p className="text-sm text-muted-foreground">Enter your credentials to access your account</p>
         </div>
 
         <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl">Sign in</CardTitle>
-            <CardDescription>Use your university email to sign in to your account</CardDescription>
+            <CardTitle className="text-xl flex items-center gap-2">
+              <KeyRound className="h-5 w-5 text-primary" />
+              Sign in
+            </CardTitle>
+            <CardDescription className="flex items-center gap-1">
+              <Info className="h-4 w-4" />
+              Use your university email to sign in to your account
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -66,21 +86,35 @@ export default function LoginPage() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="flex items-center gap-1">
+                  <Mail className="h-4 w-4" />
+                  University Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your.name@university.edu"
+                  placeholder="user@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Info className="h-3 w-3" />
+                  Must be a validemail address
+                </p>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
-                  <Link href="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary">
+                  <Label htmlFor="password" className="flex items-center gap-1">
+                    <Lock className="h-4 w-4" />
+                    Password
+                  </Label>
+                  <Link 
+                    href="/auth/forgot-password" 
+                    className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1"
+                  >
+                    <HelpCircle className="h-3 w-3" />
                     Forgot password?
                   </Link>
                 </div>
@@ -91,6 +125,10 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <ShieldCheck className="h-3 w-3" />
+                  Enter your secure password
+                </p>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -101,8 +139,9 @@ export default function LoginPage() {
                 />
                 <label
                   htmlFor="remember"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-1"
                 >
+                  <User className="h-4 w-4" />
                   Remember me
                 </label>
               </div>
@@ -122,7 +161,8 @@ export default function LoginPage() {
           <CardFooter className="flex flex-col">
             <div className="mt-2 text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
-              <Link href="/auth/signup" className="font-medium text-primary hover:underline">
+              <Link href="/auth/signup" className="font-medium text-primary hover:underline flex items-center gap-1">
+                <GraduationCap className="h-3 w-3" />
                 Sign up
               </Link>
             </div>
