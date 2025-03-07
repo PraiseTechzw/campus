@@ -1,251 +1,294 @@
-"use client"
-
-import { useState } from "react"
-import { useAuth } from "@/components/hooks/use-auth"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BarChart, Bell, DollarSign, Package, ShoppingBag, Users } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import Link from "next/link"
+import { HeroIllustration } from "@/components/illustrations/hero-illustration"
+import { CategoryCard } from "@/components/category-card"
+import { TestimonialCard } from "@/components/testimonial-card"
+import { SignUpIllustration } from "@/components/illustrations/signup-illustration"
+import { ListingIllustration } from "@/components/illustrations/listing-illustration"
+import { ExchangeIllustration } from "@/components/illustrations/exchange-illustration"
+import { CategoryIcons } from "@/components/illustrations/category-icons"
 
-export default function DashboardPage() {
-  const { user } = useAuth()
-  const [activeTab, setActiveTab] = useState("overview")
-
-  // Mock data for dashboard
-  const stats = [
+export default function Home() {
+  const categories = [
     {
-      title: "Active Listings",
-      value: "12",
-      description: "Your current marketplace listings",
-      icon: <Package className="h-5 w-5 text-primary" />,
-      change: "+2 from last month",
-      trend: "up",
-      link: "/dashboard/listings",
+      id: "textbooks",
+      title: "Textbooks",
+      description: "Find and sell used textbooks",
+      icon: "textbooks",
+      color: "bg-blue-100 dark:bg-blue-950/40",
+      iconColor: "text-blue-600 dark:text-blue-400",
     },
     {
-      title: "Unread Messages",
-      value: "3",
-      description: "Messages awaiting your response",
-      icon: <Bell className="h-5 w-5 text-primary" />,
-      change: "-1 from yesterday",
-      trend: "down",
-      link: "/dashboard/messages",
+      id: "electronics",
+      title: "Electronics",
+      description: "Laptops, phones, and accessories",
+      icon: "electronics",
+      color: "bg-purple-100 dark:bg-purple-950/40",
+      iconColor: "text-purple-600 dark:text-purple-400",
     },
     {
-      title: "Items Sold",
-      value: "8",
-      description: "Successfully completed sales",
-      icon: <ShoppingBag className="h-5 w-5 text-primary" />,
-      change: "+3 from last month",
-      trend: "up",
-      link: "/dashboard/sales",
+      id: "furniture",
+      title: "Furniture",
+      description: "Desks, chairs, and dorm essentials",
+      icon: "furniture",
+      color: "bg-amber-100 dark:bg-amber-950/40",
+      iconColor: "text-amber-600 dark:text-amber-400",
     },
     {
-      title: "Total Earnings",
-      value: "$420",
-      description: "Revenue from all your sales",
-      icon: <DollarSign className="h-5 w-5 text-primary" />,
-      change: "+$120 from last month",
-      trend: "up",
-      link: "/dashboard/earnings",
+      id: "services",
+      title: "Services",
+      description: "Tutoring, design, and more",
+      icon: "services",
+      color: "bg-green-100 dark:bg-green-950/40",
+      iconColor: "text-green-600 dark:text-green-400",
     },
   ]
 
-  // Recent activity mock data
-  const recentActivity = [
+  const testimonials = [
     {
       id: 1,
-      type: "message",
-      title: "New message from Sarah",
-      description: "Regarding your Calculus textbook listing",
-      time: "10 minutes ago",
-      link: "/dashboard/messages/123",
+      name: "Alex Johnson",
+      avatar: "/avatars/avatar-1.svg",
+      quote: "Sold my old laptop in 2 hours! So much easier than other marketplace apps.",
+      program: "Computer Science",
     },
     {
       id: 2,
-      type: "sale",
-      title: "Item sold: MacBook Pro Charger",
-      description: "Sold for $45",
-      time: "2 hours ago",
-      link: "/dashboard/sales/456",
+      name: "Maria Garcia",
+      avatar: "/avatars/avatar-2.svg",
+      quote: "Found all my textbooks for the semester at half the bookstore price.",
+      program: "Business Administration",
     },
     {
       id: 3,
-      type: "listing",
-      title: "New listing created",
-      description: "Physics Textbook 8th Edition",
-      time: "Yesterday",
-      link: "/listings/789",
+      name: "David Kim",
+      avatar: "/avatars/avatar-3.svg",
+      quote: "The campus-only meetups make transactions so much safer and convenient.",
+      program: "Engineering",
+    },
+  ]
+
+  const steps = [
+    {
+      number: 1,
+      title: "Sign Up",
+      description: "Create an account using your campus email to join our verified student marketplace.",
+      illustration: <SignUpIllustration className="w-full h-full" />,
+      benefits: ["Verified student-only community", "Secure campus email authentication", "Free to join and use"],
     },
     {
-      id: 4,
-      type: "favorite",
-      title: "Someone favorited your listing",
-      description: "Desk Lamp - Black",
-      time: "2 days ago",
-      link: "/listings/101",
+      number: 2,
+      title: "List Item",
+      description: "Take a photo, set a price, and publish your listing in under a minute.",
+      illustration: <ListingIllustration className="w-full h-full" />,
+      benefits: ["Quick and easy listing process", "Set your own prices", "Reach local campus buyers"],
+    },
+    {
+      number: 3,
+      title: "Meet & Exchange",
+      description: "Connect with buyers or sellers and meet at a designated campus spot.",
+      illustration: <ExchangeIllustration className="w-full h-full" />,
+      benefits: ["Safe on-campus meetups", "No shipping hassles", "Direct person-to-person exchange"],
     },
   ]
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome back, {user?.name || "User"}! Here's an overview of your marketplace activity.
-        </p>
-      </div>
-
-      <Tabs defaultValue="overview" className="space-y-4" onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="activity">Recent Activity</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, i) => (
-              <Card key={i} className="card-hover">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-                  <div className="h-8 w-8 rounded-full bg-primary/10 p-1.5 flex items-center justify-center">
-                    {stat.icon}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <p className="text-xs text-muted-foreground">{stat.description}</p>
-                  <div className="mt-2 flex items-center text-xs">
-                    {stat.trend === "up" ? (
-                      <span className="text-success">↑</span>
-                    ) : (
-                      <span className="text-destructive">↓</span>
-                    )}
-                    <span className="ml-1">{stat.change}</span>
-                  </div>
-                  <Button variant="link" size="sm" asChild className="mt-2 p-0">
-                    <Link href={stat.link}>View details</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card className="col-span-1 card-hover">
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Your latest interactions on the platform</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {recentActivity.slice(0, 3).map((activity) => (
-                  <div key={activity.id} className="flex items-start space-x-3 border-b pb-3 last:border-0">
-                    <div className="rounded-full bg-primary/10 p-2">
-                      {activity.type === "message" && <Bell className="h-4 w-4 text-primary" />}
-                      {activity.type === "sale" && <DollarSign className="h-4 w-4 text-primary" />}
-                      {activity.type === "listing" && <Package className="h-4 w-4 text-primary" />}
-                      {activity.type === "favorite" && <Users className="h-4 w-4 text-primary" />}
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">{activity.title}</p>
-                      <p className="text-xs text-muted-foreground">{activity.description}</p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
-                    </div>
-                  </div>
-                ))}
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link href="/dashboard/activity">View all activity</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="col-span-1 card-hover">
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-                <CardDescription>Common tasks you might want to perform</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button className="w-full justify-start btn-gradient" asChild>
-                  <Link href="/listings/create">
-                    <Package className="mr-2 h-4 w-4" />
-                    Create New Listing
-                  </Link>
-                </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/dashboard/messages">
-                    <Bell className="mr-2 h-4 w-4" />
-                    Check Messages
-                  </Link>
-                </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/listings">
-                    <ShoppingBag className="mr-2 h-4 w-4" />
-                    Browse Marketplace
-                  </Link>
-                </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/dashboard/profile">
-                    <Users className="mr-2 h-4 w-4" />
-                    Update Profile
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="analytics" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Sales Analytics</CardTitle>
-              <CardDescription>Your marketplace performance over time</CardDescription>
-            </CardHeader>
-            <CardContent className="h-[300px] flex items-center justify-center">
-              <div className="flex flex-col items-center text-center">
-                <BarChart className="h-10 w-10 text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium">Analytics Coming Soon</h3>
-                <p className="text-sm text-muted-foreground max-w-md">
-                  We're working on providing detailed analytics for your marketplace activity. Check back soon for
-                  insights on your sales, views, and more.
+    <div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-background py-16 md:py-24">
+        <div className="absolute inset-0 z-0 opacity-30 dark:opacity-20">
+          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl"></div>
+          <div className="absolute top-1/2 -left-24 h-64 w-64 rounded-full bg-purple-500/20 blur-3xl"></div>
+        </div>
+        <div className="container relative z-10 mx-auto px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+            <div className="flex flex-col justify-center space-y-4">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient">
+                  Your Campus Hub for Buying, Selling, and Connecting
+                </h1>
+                <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  Join thousands of students at your campus who are already saving money and finding exactly what they
+                  need.
                 </p>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+              <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <Button size="lg" className="btn-gradient" asChild>
+                  <Link href="/signup">Join Now</Link>
+                </Button>
+                <Button size="lg" variant="outline" className="group" asChild>
+                  <Link href="/listings">
+                    Browse Listings{" "}
+                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="relative w-full max-w-[500px] aspect-square">
+                <HeroIllustration className="w-full h-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <TabsContent value="activity" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>All your recent interactions on the platform</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {recentActivity.map((activity) => (
-                <div key={activity.id} className="flex items-start space-x-4 border-b pb-4 last:border-0">
-                  <div className="rounded-full bg-primary/10 p-3">
-                    {activity.type === "message" && <Bell className="h-5 w-5 text-primary" />}
-                    {activity.type === "sale" && <DollarSign className="h-5 w-5 text-primary" />}
-                    {activity.type === "listing" && <Package className="h-5 w-5 text-primary" />}
-                    {activity.type === "favorite" && <Users className="h-5 w-5 text-primary" />}
-                  </div>
-                  <div className="space-y-1 flex-1">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium leading-none">{activity.title}</p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
+      {/* Categories Section */}
+      <section className="py-12 md:py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Browse Categories</h2>
+              <p className="max-w-[700px] text-muted-foreground md:text-xl">
+                Find exactly what you're looking for from our wide variety of campus listings.
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.id}
+                title={category.title}
+                description={category.description}
+                icon={<CategoryIcons type={category.icon} className={`h-8 w-8 ${category.iconColor}`} />}
+                href={`/listings?category=${category.id}`}
+                color={category.color}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="relative overflow-hidden bg-gray-50 dark:bg-gray-900/50 py-16 md:py-24">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-primary/30 blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-purple-500/30 blur-3xl"></div>
+        </div>
+        <div className="container relative z-10 mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+            <div className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-2">
+              Simple Process
+            </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gradient">How It Works</h2>
+            <p className="max-w-[700px] text-muted-foreground md:text-xl">
+              Our platform makes buying and selling within your campus community simple, safe, and efficient.
+            </p>
+          </div>
+
+          <div className="relative mt-16">
+            {/* Process Steps */}
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-primary/20 -translate-y-1/2 z-0"></div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
+              {steps.map((step, index) => (
+                <div key={step.number} className="flex flex-col items-center">
+                  {/* Step Number */}
+                  <div className="relative mb-6">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-xl font-bold shadow-lg">
+                      {step.number}
                     </div>
-                    <p className="text-sm text-muted-foreground">{activity.description}</p>
-                    <Button variant="link" size="sm" className="p-0 h-auto" asChild>
-                      <Link href={activity.link}>View details</Link>
-                    </Button>
+                    {index < steps.length - 1 && (
+                      <div className="absolute top-1/2 left-full h-1 w-8 bg-primary/20 -translate-y-1/2 hidden md:block"></div>
+                    )}
+                  </div>
+
+                  {/* Step Content */}
+                  <div className="bg-background rounded-xl p-6 shadow-subtle border border-border/50 hover:shadow-stronger transition-all duration-300 w-full">
+                    <div className="h-32 w-full flex items-center justify-center mb-4">{step.illustration}</div>
+                    <h3 className="text-xl font-bold mb-2 text-center">{step.title}</h3>
+                    <p className="text-muted-foreground text-center">{step.description}</p>
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                      <h4 className="text-sm font-medium text-primary mb-2">Benefits:</h4>
+                      <ul className="space-y-1">
+                        {step.benefits.map((benefit, i) => (
+                          <li key={i} className="flex items-start">
+                            <svg
+                              className="h-5 w-5 text-green-500 mr-2 flex-shrink-0"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="text-sm">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            </div>
+
+            {/* Mobile Process Connector */}
+            <div className="md:hidden absolute top-0 bottom-0 left-1/2 w-1 bg-primary/20 -translate-x-1/2 z-0"></div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <Button size="lg" className="btn-gradient" asChild>
+              <Link href="/signup">Get Started Today</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 md:py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">What Students Say</h2>
+              <p className="max-w-[700px] text-muted-foreground md:text-xl">
+                Hear from students who have successfully used our platform.
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard
+                key={testimonial.id}
+                name={testimonial.name}
+                avatar={testimonial.avatar}
+                quote={testimonial.quote}
+                program={testimonial.program}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative overflow-hidden bg-primary text-primary-foreground py-12 md:py-16">
+        <div className="absolute inset-0 z-0 opacity-10">
+          <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full bg-white blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-white blur-3xl"></div>
+        </div>
+        <div className="container relative z-10 mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Ready to Join?</h2>
+              <p className="max-w-[700px] text-primary-foreground/80 md:text-xl">
+                Create your account today and start buying, selling, and connecting with your campus community.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+              <Button size="lg" variant="secondary" className="shadow-lg" asChild>
+                <Link href="/signup">Create Account</Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+              >
+                <Link href="/listings">Browse Listings</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

@@ -61,10 +61,10 @@ export function Navbar() {
           <nav className="flex items-center space-x-1">
             <div className="hidden md:flex items-center space-x-2">
               <Button variant="outline" asChild>
-                <Link href="/login">Sign In</Link>
+                <Link href="auth/login">Sign In</Link>
               </Button>
               <Button asChild>
-                <Link href="/signup">Sign Up</Link>
+                <Link href="auth/signup">Sign Up</Link>
               </Button>
             </div>
             <ModeToggle />
@@ -120,7 +120,7 @@ export function Navbar() {
                     <div className="flex flex-col gap-2">
                       <Button asChild>
                         <Link
-                          href="/login"
+                          href="auth/login"
                           onClick={() =>
                             document.querySelector<HTMLButtonElement>("[data-radix-collection-item]")?.click()
                           }
@@ -130,7 +130,7 @@ export function Navbar() {
                       </Button>
                       <Button asChild variant="outline">
                         <Link
-                          href="/signup"
+                          href="auth/signup"
                           onClick={() =>
                             document.querySelector<HTMLButtonElement>("[data-radix-collection-item]")?.click()
                           }
