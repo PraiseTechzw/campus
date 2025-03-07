@@ -24,7 +24,7 @@ import {
   Building2
 } from "lucide-react"
 import { universities } from "@/lib/mock"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { toast } from "sonner"
 
 
 
@@ -52,8 +52,8 @@ export default function SignupPage() {
   }
 
   const validateForm = () => {
-    if (!formData.email.endsWith(".edu")) {
-      setError("Please use your university email address (.edu)")
+    if (!formData.email.endsWith(".com")) {
+      setError("Please use your  email address")
       return false
     }
 
@@ -90,14 +90,48 @@ export default function SignupPage() {
 
     setIsLoading(true)
 
-    // Simulate API call delay
-    setTimeout(() => {
-      // Mock successful registration
-      console.log("Registration successful", formData)
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          name: `${formData.firstName} ${formData.lastName}`,
+          university: formData.university,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+        }),
+      })
 
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create account")
+      }
+
+      toast.success("Account created successfully! Please check your email to verify your account.", {
+        style: {
+          background: '#2563eb', // blue-600
+          color: 'white',
+        },
+      })
+      
       // Redirect to verification page
       router.push("/auth/verify-email")
-    }, 1500)
+    } catch (error: any) {
+      setError(error.message || "Failed to create account")
+      toast.error(error.message || "Failed to create account", {
+        style: {
+          background: '#dc2626', // red-600
+          color: 'white',
+        },
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -167,14 +201,14 @@ export default function SignupPage() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="your.name@university.edu"
+                  placeholder="user@example.com"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
                 />
                 <p className="text-xs text-muted-foreground flex items-center gap-1">
                   <Info className="h-3 w-3" />
-                  Must be a valid university email address
+                  Must be a valid  email address
                 </p>
               </div>
 

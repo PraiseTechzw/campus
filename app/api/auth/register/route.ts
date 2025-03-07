@@ -4,15 +4,15 @@ import { createUserAccount } from "@/lib/appwrite"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { email, password, name, university } = body
+    const { email, password, name, university, firstName, lastName } = body
 
     // Basic validation
-    if (!email || !password || !name || !university) {
+    if (!email || !password || !name || !university || !firstName || !lastName) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
     // Validate university email
-    if (!email.endsWith(".edu")) {
+    if (!email.endsWith(".com")) {
       return NextResponse.json({ error: "Please use a valid university email" }, { status: 400 })
     }
 
@@ -22,6 +22,8 @@ export async function POST(request: Request) {
       password,
       name,
       university,
+      firstName,
+      lastName,
     })
 
     return NextResponse.json({ message: "Account created successfully", user: newUser }, { status: 201 })
