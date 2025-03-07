@@ -13,9 +13,9 @@ interface CategoryCardProps {
 export function CategoryCard({ title, description, icon, href, color = "bg-gray-100" }: CategoryCardProps) {
   return (
     <Link href={href} className="block transition-transform hover:scale-105">
-      <Card className="h-full overflow-hidden">
+      <Card className="h-full overflow-hidden card-hover">
         <CardHeader className={`${color} flex flex-row items-center gap-2 p-4`}>
-          <div className="rounded-full bg-white p-2">{icon}</div>
+          <div className="rounded-full bg-background p-2 shadow-sm">{icon}</div>
           <CardTitle className="text-xl">{title}</CardTitle>
         </CardHeader>
         <CardContent className="p-4">

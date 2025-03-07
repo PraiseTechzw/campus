@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { DashboardSidebar } from "@/components/dashboard-sidebar"
-import { useAuth } from "@/components/use-auth"
+import { useAuth } from "@/components/hooks/use-auth"
 import { Loader2 } from "lucide-react"
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar"
-import { useAuth } from "@/components/use-auth"
+import { useAuth } from "@/components/hooks/use-auth"
 import {
   LayoutDashboard,
   ListFilter,
@@ -81,7 +81,12 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard")} tooltip="Dashboard">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard")}
+                  tooltip="Dashboard"
+                  className={isActivePath("/dashboard") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard">
                     <LayoutDashboard />
                     <span>Dashboard</span>
@@ -90,7 +95,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/listings")} tooltip="Listings">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/listings")}
+                  tooltip="Listings"
+                  className={isActivePath("/dashboard/listings") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/listings">
                     <Package />
                     <span>My Listings</span>
@@ -99,7 +109,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/messages")} tooltip="Messages">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/messages")}
+                  tooltip="Messages"
+                  className={isActivePath("/dashboard/messages") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/messages">
                     <MessageSquare />
                     <span>Messages</span>
@@ -108,7 +123,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/favorites")} tooltip="Favorites">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/favorites")}
+                  tooltip="Favorites"
+                  className={isActivePath("/dashboard/favorites") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/favorites">
                     <Star />
                     <span>Favorites</span>
@@ -125,7 +145,12 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/listings/create")} tooltip="Create Listing">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/listings/create")}
+                  tooltip="Create Listing"
+                  className={isActivePath("/listings/create") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/listings/create">
                     <Plus />
                     <span>Create Listing</span>
@@ -134,7 +159,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/listings")} tooltip="Browse">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/listings")}
+                  tooltip="Browse"
+                  className={isActivePath("/listings") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/listings">
                     <ListFilter />
                     <span>Browse Listings</span>
@@ -151,7 +181,12 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/profile")} tooltip="Profile">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/profile")}
+                  tooltip="Profile"
+                  className={isActivePath("/dashboard/profile") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/profile">
                     <User />
                     <span>Profile</span>
@@ -160,7 +195,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/notifications")} tooltip="Notifications">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/notifications")}
+                  tooltip="Notifications"
+                  className={isActivePath("/dashboard/notifications") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/notifications">
                     <Bell />
                     <span>Notifications</span>
@@ -169,7 +209,12 @@ export function DashboardSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/dashboard/settings")} tooltip="Settings">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/dashboard/settings")}
+                  tooltip="Settings"
+                  className={isActivePath("/dashboard/settings") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/dashboard/settings">
                     <Settings />
                     <span>Settings</span>
@@ -187,7 +232,12 @@ export function DashboardSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActivePath("/admin/users")} tooltip="Users">
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActivePath("/admin/users")}
+                    tooltip="Users"
+                    className={isActivePath("/admin/users") ? "sidebar-active-item pl-4" : "pl-2"}
+                  >
                     <Link href="/admin/users">
                       <Users />
                       <span>Users</span>
@@ -196,7 +246,12 @@ export function DashboardSidebar() {
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActivePath("/admin/listings")} tooltip="Listings">
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActivePath("/admin/listings")}
+                    tooltip="Listings"
+                    className={isActivePath("/admin/listings") ? "sidebar-active-item pl-4" : "pl-2"}
+                  >
                     <Link href="/admin/listings">
                       <Package />
                       <span>Listings</span>
@@ -205,7 +260,12 @@ export function DashboardSidebar() {
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActivePath("/admin/reports")} tooltip="Reports">
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActivePath("/admin/reports")}
+                    tooltip="Reports"
+                    className={isActivePath("/admin/reports") ? "sidebar-active-item pl-4" : "pl-2"}
+                  >
                     <Link href="/admin/reports">
                       <FileText />
                       <span>Reports</span>
@@ -223,7 +283,12 @@ export function DashboardSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActivePath("/help")} tooltip="Help Center">
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActivePath("/help")}
+                  tooltip="Help Center"
+                  className={isActivePath("/help") ? "sidebar-active-item pl-4" : "pl-2"}
+                >
                   <Link href="/help">
                     <HelpCircle />
                     <span>Help Center</span>
