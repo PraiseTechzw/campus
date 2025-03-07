@@ -12,15 +12,21 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { AlertCircle, Loader2 } from "lucide-react"
+import { 
+  AlertCircle, 
+  Loader2, 
+  Mail, 
+  Lock, 
+  User, 
+  GraduationCap, 
+  ShieldCheck,
+  Info,
+  Building2
+} from "lucide-react"
+import { universities } from "@/lib/mock"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
-// Mock university data
-const universities = [
-  { id: "state-u", name: "State University" },
-  { id: "tech-inst", name: "Tech Institute" },
-  { id: "liberal-arts", name: "Liberal Arts College" },
-  { id: "community-college", name: "Community College" },
-]
+
 
 export default function SignupPage() {
   const router = useRouter()
@@ -53,6 +59,11 @@ export default function SignupPage() {
 
     if (formData.password.length < 8) {
       setError("Password must be at least 8 characters long")
+      return false
+    }
+
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      setError("Password must contain at least one uppercase letter, one lowercase letter, and one number")
       return false
     }
 
@@ -101,7 +112,10 @@ export default function SignupPage() {
 
         <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl">Sign up</CardTitle>
+            <CardTitle className="text-xl flex items-center gap-2">
+              <GraduationCap className="h-6 w-6 text-primary" />
+              Sign up
+            </CardTitle>
             <CardDescription>Enter your information to create an account</CardDescription>
           </CardHeader>
           <CardContent>
@@ -115,29 +129,40 @@ export default function SignupPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="firstName" className="flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    First Name
+                  </Label>
                   <Input
                     id="firstName"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
+                    placeholder="John"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="lastName" className="flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    Last Name
+                  </Label>
                   <Input
                     id="lastName"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
+                    placeholder="Doe"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">University Email</Label>
+                <Label htmlFor="email" className="flex items-center gap-1">
+                  <Mail className="h-4 w-4" />
+                  University Email
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -147,11 +172,17 @@ export default function SignupPage() {
                   onChange={handleInputChange}
                   required
                 />
-                <p className="text-xs text-muted-foreground">Must be a valid .edu email address</p>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Info className="h-3 w-3" />
+                  Must be a valid university email address
+                </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="university">University</Label>
+                <Label htmlFor="university" className="flex items-center gap-1">
+                  <Building2 className="h-4 w-4" />
+                  University
+                </Label>
                 <Select value={formData.university} onValueChange={handleUniversityChange} required>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your university" />
@@ -167,7 +198,10 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="flex items-center gap-1">
+                  <Lock className="h-4 w-4" />
+                  Password
+                </Label>
                 <Input
                   id="password"
                   name="password"
@@ -176,11 +210,25 @@ export default function SignupPage() {
                   onChange={handleInputChange}
                   required
                 />
-                <p className="text-xs text-muted-foreground">Must be at least 8 characters</p>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <p className="flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3" />
+                    Password requirements:
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>At least 8 characters</li>
+                    <li>One uppercase letter</li>
+                    <li>One lowercase letter</li>
+                    <li>One number</li>
+                  </ul>
+                </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className="flex items-center gap-1">
+                  <Lock className="h-4 w-4" />
+                  Confirm Password
+                </Label>
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
